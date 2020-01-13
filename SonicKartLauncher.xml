@@ -234,14 +234,13 @@
             <param name="additionalArgs"> string of additional arguements </param>
             <returns><c>true</c> if the changelog can be accessed; otherwise, <c>false</c>.</returns>
         </member>
-        <member name="M:Launchpad.Launcher.Handlers.GameHandler.LaunchGame(System.Boolean,System.Boolean,System.Boolean,System.Boolean)">
+        <member name="M:Launchpad.Launcher.Handlers.GameHandler.LaunchGame(System.Boolean,System.Boolean,System.Boolean)">
             <summary>
             Launches the game.
             </summary>
             <param name="noMods">Start without mods</param>
             <param name="wipeoutMode">start with wipeout mod on</param>
             <param name="directConnect">directly connect to server</param>
-            <param name="openGL">start with openGL on</param>
         </member>
         <member name="M:Launchpad.Launcher.Handlers.GameHandler.OnModuleInstallProgressChanged(System.Object,Launchpad.Launcher.Handlers.Protocols.ModuleProgressChangedArgs)">
             <summary>
@@ -885,13 +884,6 @@
             </summary>
             <param name="sender">Sender.</param>
             <param name="e">E.</param>
-        </member>
-        <member name="M:Launchpad.Launcher.Interface.MainWindow.OnOpenGLClicked(System.Object,System.EventArgs)">
-            <summary>
-            Start game in OPENGL
-            </summary>
-            <param name="sender">The sender.</param>
-            <param name="e">Empty arguments.</param>
         </member>
         <member name="M:Launchpad.Launcher.Interface.MainWindow.OnMainButtonClicked(System.Object,System.EventArgs)">
             <summary>
