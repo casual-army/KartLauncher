@@ -1,0 +1,1197 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SonicKartLauncher</name>
+    </assembly>
+    <members>
+        <member name="T:Launchpad.Launcher.Configuration.ILaunchpadConfiguration">
+            <summary>
+            Configuration file interface.
+            </summary>
+        </member>
+        <member name="P:Launchpad.Launcher.Configuration.ILaunchpadConfiguration.ChangelogAddress">
+            <summary>
+            Gets or sets the address where the changelog is hosted.
+            </summary>
+        </member>
+        <member name="P:Launchpad.Launcher.Configuration.ILaunchpadConfiguration.SystemTarget">
+            <summary>
+            Gets or sets the system target of the launcher.
+            </summary>
+        </member>
+        <member name="P:Launchpad.Launcher.Configuration.ILaunchpadConfiguration.UseOfficialUpdates">
+            <summary>
+            Gets or sets a value indicating whether or not to use the official update source.
+            </summary>
+        </member>
+        <member name="P:Launchpad.Launcher.Configuration.ILaunchpadConfiguration.GameName">
+            <summary>
+            Gets or sets the name of the game.
+            </summary>
+        </member>
+        <member name="P:Launchpad.Launcher.Configuration.ILaunchpadConfiguration.ExecutablePath">
+            <summary>
+            Gets or sets the path to the game's executable, relative to the launcher.
+            </summary>
+        </member>
+        <member name="P:Launchpad.Launcher.Configuration.ILaunchpadConfiguration.RemoteAddress">
+            <summary>
+            Gets or sets the address of the remote server.
+            </summary>
+        </member>
+        <member name="P:Launchpad.Launcher.Configuration.ILaunchpadConfiguration.RemoteUsername">
+            <summary>
+            Gets or sets the username to use when authenticating with the remote server.
+            </summary>
+        </member>
+        <member name="P:Launchpad.Launcher.Configuration.ILaunchpadConfiguration.RemotePassword">
+            <summary>
+            Gets or sets the password to use when authenticating with the remote server.
+            </summary>
+        </member>
+        <member name="P:Launchpad.Launcher.Configuration.ILaunchpadConfiguration.RemoteFileDownloadRetries">
+            <summary>
+            Gets or sets the number of times to retry file downloads.
+            </summary>
+        </member>
+        <member name="P:Launchpad.Launcher.Configuration.ILaunchpadConfiguration.RemoteFileDownloadBufferSize">
+            <summary>
+            Gets or sets the buffer size to use when downloading files.
+            </summary>
+        </member>
+        <member name="T:Launchpad.Launcher.ManifestEntryExtensions">
+            <summary>
+            Extension methods for the <see cref="T:Launchpad.Common.Handlers.Manifest.ManifestEntry"/> class.
+            </summary>
+        </member>
+        <member name="M:Launchpad.Launcher.ManifestEntryExtensions.IsFileIntegrityIntact(Launchpad.Common.Handlers.Manifest.ManifestEntry)">
+            <summary>
+            Verifies the integrity of the file in the manifest entry.
+            </summary>
+            <param name="entry">The manifest entry to test.</param>
+            <returns><c>true</c>, if file was complete and undamaged, <c>false</c> otherwise.</returns>
+        </member>
+        <member name="T:Launchpad.Launcher.Handlers.ChecksHandler">
+            <summary>
+            This class handles all the launcher's checks, returning bools for each function.
+            </summary>
+        </member>
+        <member name="F:Launchpad.Launcher.Handlers.ChecksHandler.Log">
+            <summary>
+            Logger instance for this class.
+            </summary>
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.ChecksHandler.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Launchpad.Launcher.Handlers.ChecksHandler"/> class.
+            </summary>
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.ChecksHandler.CanPatch">
+            <summary>
+            Determines whether this instance can connect to a patching service.
+            </summary>
+            <returns><c>true</c> if this instance can connect to a patching service; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.ChecksHandler.IsInitialStartup">
+            <summary>
+            Determines whether this is the first time the launcher starts.
+            </summary>
+            <returns><c>true</c> if this is the first time; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.ChecksHandler.IsGameInstalled">
+            <summary>
+            Determines whether the game is installed.
+            </summary>
+            <returns><c>true</c> if the game is installed; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.ChecksHandler.IsGameOutdated">
+            <summary>
+            Determines whether the game is outdated.
+            </summary>
+            <returns><c>true</c> if the game is outdated; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.ChecksHandler.IsLauncherOutdated">
+            <summary>
+            Determines whether the launcher is outdated.
+            </summary>
+            <returns><c>true</c> if the launcher is outdated; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.ChecksHandler.IsInstallCookieEmpty">
+            <summary>
+            Determines whether the install cookie is empty
+            </summary>
+            <returns><c>true</c> if the install cookie is empty, otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.ChecksHandler.IsPlatformAvailable(Launchpad.Common.Enums.ESystemTarget)">
+            <summary>
+            Checks whether or not the server provides binaries and patches for the specified platform.
+            </summary>
+            <returns><c>true</c>, if the server does provide files for the platform, <c>false</c> otherwise.</returns>
+            <param name="platform">platform.</param>
+        </member>
+        <member name="T:Launchpad.Launcher.Handlers.ConfigHandler">
+            <summary>
+            Config handler.
+            This is a singleton class, and it should always be accessed through <see cref="F:Launchpad.Launcher.Handlers.ConfigHandler.Instance"/>.
+            </summary>
+        </member>
+        <member name="F:Launchpad.Launcher.Handlers.ConfigHandler.Instance">
+            <summary>
+            The singleton Instance. Will always point to one shared object.
+            </summary>
+        </member>
+        <member name="P:Launchpad.Launcher.Handlers.ConfigHandler.Configuration">
+            <summary>
+            Gets the configuration instance.
+            </summary>
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.ConfigHandler.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Launchpad.Launcher.Handlers.ConfigHandler"/> class and initalizes it.
+            </summary>
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.ConfigHandler.InitializeConfigurationFile">
+            <summary>
+            Initializes the config by checking for bad values or files.
+            Run once when the launcher starts, then avoid unless absolutely neccesary.
+            </summary>
+        </member>
+        <member name="T:Launchpad.Launcher.Handlers.GameHandler">
+             <summary>
+             This class has a lot of async stuff going on. It handles installing the game
+             and updating it when it needs to.
+            
+             The download protocol is selected based on the configuration each time this is
+             instantiated, and control is then handed over to whatever the protocol needs
+             to do.
+            
+             Since this class starts new threads in which it does the larger computations,
+             there must be no useage of UI code in this class. Keep it clean!
+             </summary>
+        </member>
+        <member name="F:Launchpad.Launcher.Handlers.GameHandler.Log">
+            <summary>
+            Logger instance for this class.
+            </summary>
+        </member>
+        <member name="E:Launchpad.Launcher.Handlers.GameHandler.ProgressChanged">
+            <summary>
+            Event raised whenever the progress of installing or updating the game changes.
+            </summary>
+        </member>
+        <member name="E:Launchpad.Launcher.Handlers.GameHandler.DownloadFinished">
+            <summary>
+            Event raised whenever the game finishes downloading, regardless of whether or not it's updating
+            or installing.
+            </summary>
+        </member>
+        <member name="E:Launchpad.Launcher.Handlers.GameHandler.DownloadFailed">
+            <summary>
+            Event raised whenever the game fails to download, regardless of whether or not it's updating
+            or installing.
+            </summary>
+        </member>
+        <member name="E:Launchpad.Launcher.Handlers.GameHandler.LaunchFailed">
+            <summary>
+            Event raised whenever the game fails to launch.
+            </summary>
+        </member>
+        <member name="E:Launchpad.Launcher.Handlers.GameHandler.GameExited">
+            <summary>
+            Event raised whenever the game exits.
+            </summary>
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.GameHandler.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Launchpad.Launcher.Handlers.GameHandler"/> class.
+            </summary>
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.GameHandler.InstallGame">
+            <summary>
+            Starts an asynchronous game installation task.
+            </summary>
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.GameHandler.UpdateGame">
+            <summary>
+            Starts an asynchronous game update task.
+            </summary>
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.GameHandler.VerifyGame">
+            <summary>
+            Starts an asynchronous game verification task.
+            </summary>
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.GameHandler.ReinstallGame">
+            <summary>
+            Deletes all local data and installs the game again.
+            </summary>
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.GameHandler.DirSearch(System.String,System.String)">
+            <summary>
+            puts together some args
+            </summary>
+            <param name="dir"> is a string of the directory</param>
+            <param name="additionalArgs"> string of additional arguements </param>
+            <returns><c>true</c> if the changelog can be accessed; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.GameHandler.LaunchGame(System.Boolean,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            Launches the game.
+            </summary>
+            <param name="noMods">Start without mods</param>
+            <param name="wipeoutMode">start with wipeout mod on</param>
+            <param name="directConnect">directly connect to server</param>
+            <param name="openGL">start with openGL on</param>
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.GameHandler.OnModuleInstallProgressChanged(System.Object,Launchpad.Launcher.Handlers.Protocols.ModuleProgressChangedArgs)">
+            <summary>
+            Passes the internal event in the protocol handler to the outward-facing
+            event.
+            </summary>
+            <param name="sender">Sender.</param>
+            <param name="e">E.</param>
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.GameHandler.OnModuleInstallationFinished(System.Object,Launchpad.Launcher.Handlers.Protocols.EModule)">
+            <summary>
+            Passes the internal event in the protocol handler to the outward-facing
+            event.
+            </summary>
+            <param name="sender">Sender.</param>
+            <param name="e">E.</param>
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.GameHandler.OnModuleInstallationFailed(System.Object,Launchpad.Launcher.Handlers.Protocols.EModule)">
+            <summary>
+            Passes the internal event in the protocol handler to the outward-facing
+            event.
+            </summary>
+            <param name="sender">Sender.</param>
+            <param name="e">E.</param>
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.GameHandler.OnGameLaunchFailed">
+            <summary>
+            Raises the Game Launch Failed event.
+            </summary>
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.GameHandler.OnGameExited(System.Int32)">
+            <summary>
+            Raises the Game Exited event.
+            </summary>
+        </member>
+        <member name="T:Launchpad.Launcher.Handlers.LauncherHandler">
+            <summary>
+            This class has a lot of async stuff going on. It handles updating the launcher
+            and loading the changelog from the server.
+            Since this class starts new threads in which it does the larger computations,
+            there must be no useage of UI code in this class. Keep it clean!
+            </summary>
+        </member>
+        <member name="F:Launchpad.Launcher.Handlers.LauncherHandler.Log">
+            <summary>
+            Logger instance for this class.
+            </summary>
+        </member>
+        <member name="E:Launchpad.Launcher.Handlers.LauncherHandler.LauncherDownloadFinished">
+            <summary>
+            Raised whenever the launcher finishes downloading.
+            </summary>
+        </member>
+        <member name="E:Launchpad.Launcher.Handlers.LauncherHandler.LauncherDownloadProgressChanged">
+            <summary>
+            Raised whenever the launcher download progress changes.
+            </summary>
+        </member>
+        <member name="F:Launchpad.Launcher.Handlers.LauncherHandler.Configuration">
+            <summary>
+            The config handler reference.
+            </summary>
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.LauncherHandler.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Launchpad.Launcher.Handlers.LauncherHandler"/> class.
+            </summary>
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.LauncherHandler.UpdateLauncher">
+            <summary>
+            Updates the launcher asynchronously.
+            </summary>
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.LauncherHandler.CanAccessStandardChangelog">
+            <summary>
+            Checks if the launcher can access the standard HTTP changelog.
+            </summary>
+            <returns><c>true</c> if the changelog can be accessed; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.LauncherHandler.CreateUpdateScript">
+            <summary>
+            Creates the update script on disk.
+            </summary>
+            <returns>ProcessStartInfo for the update script.</returns>
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.LauncherHandler.GetUpdateScriptSource">
+            <summary>
+            Extracts the bundled update script and populates the variables in it
+            with the data needed for the update procedure.
+            </summary>
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.LauncherHandler.GetUpdateScriptResourceName">
+            <summary>
+            Gets the name of the embedded update script.
+            </summary>
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.LauncherHandler.GetUpdateScriptPath">
+            <summary>
+            Gets the name of the embedded update script.
+            </summary>
+        </member>
+        <member name="T:Launchpad.Launcher.Handlers.Protocols.EModule">
+            <summary>
+            A list of modules that can be downloaded and reported on.
+            </summary>
+        </member>
+        <member name="F:Launchpad.Launcher.Handlers.Protocols.EModule.Launcher">
+            <summary>
+            The launcher itself.
+            </summary>
+        </member>
+        <member name="F:Launchpad.Launcher.Handlers.Protocols.EModule.Game">
+            <summary>
+            The managed game.
+            </summary>
+        </member>
+        <member name="T:Launchpad.Launcher.Handlers.Protocols.Manifest.FTPProtocolHandler">
+             <summary>
+             FTP handler. Handles downloading and reading files on a remote FTP server.
+             There are also functions for retrieving remote version information of the game and the launcher.
+            
+             This protocol uses a manifest.
+             </summary>
+        </member>
+        <member name="F:Launchpad.Launcher.Handlers.Protocols.Manifest.FTPProtocolHandler.Log">
+            <summary>
+            Logger instance for this class.
+            </summary>
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.Protocols.Manifest.FTPProtocolHandler.CanPatch">
+            <inheritdoc />
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.Protocols.Manifest.FTPProtocolHandler.IsPlatformAvailable(Launchpad.Common.Enums.ESystemTarget)">
+            <inheritdoc />
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.Protocols.Manifest.FTPProtocolHandler.GetChangelogMarkup">
+            <inheritdoc />
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.Protocols.Manifest.FTPProtocolHandler.CanProvideBanner">
+            <inheritdoc />
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.Protocols.Manifest.FTPProtocolHandler.GetBanner">
+            <inheritdoc />
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.Protocols.Manifest.FTPProtocolHandler.ReadRemoteFile(System.String,System.Boolean)">
+            <inheritdoc />
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.Protocols.Manifest.FTPProtocolHandler.DownloadRemoteFile(System.String,System.String,System.Int64,System.Int64,System.Boolean)">
+            <inheritdoc />
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.Protocols.Manifest.FTPProtocolHandler.CreateFtpWebRequest(System.String,System.String,System.String)">
+            <summary>
+            Creates an ftp web request.
+            </summary>
+            <returns>The ftp web request.</returns>
+            <param name="remotePath">Ftp directory path.</param>
+            <param name="username">Remote FTP username.</param>
+            <param name="password">Remote FTP password</param>
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.Protocols.Manifest.FTPProtocolHandler.DoesRemoteFileExist(System.String)">
+            <summary>
+            Checks if a given file exists on the remote FTP server.
+            </summary>
+            <returns><c>true</c>, if the file exists, <c>false</c> otherwise.</returns>
+            <param name="remotePath">Remote path.</param>
+        </member>
+        <member name="T:Launchpad.Launcher.Handlers.Protocols.Manifest.HTTPProtocolHandler">
+            <summary>
+            HTTP protocol handler. Patches the launcher and game using the
+            HTTP/HTTPS protocol.
+            </summary>
+        </member>
+        <member name="F:Launchpad.Launcher.Handlers.Protocols.Manifest.HTTPProtocolHandler.Log">
+            <summary>
+            Logger instance for this class.
+            </summary>
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.Protocols.Manifest.HTTPProtocolHandler.CanPatch">
+            <inheritdoc />
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.Protocols.Manifest.HTTPProtocolHandler.IsPlatformAvailable(Launchpad.Common.Enums.ESystemTarget)">
+            <inheritdoc />
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.Protocols.Manifest.HTTPProtocolHandler.GetChangelogMarkup">
+            <inheritdoc />
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.Protocols.Manifest.HTTPProtocolHandler.CanProvideBanner">
+            <inheritdoc />
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.Protocols.Manifest.HTTPProtocolHandler.GetBanner">
+            <inheritdoc />
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.Protocols.Manifest.HTTPProtocolHandler.DownloadRemoteFile(System.String,System.String,System.Int64,System.Int64,System.Boolean)">
+            <inheritdoc />
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.Protocols.Manifest.HTTPProtocolHandler.ReadRemoteFile(System.String,System.Boolean)">
+            <inheritdoc />
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.Protocols.Manifest.HTTPProtocolHandler.CreateHttpWebRequest(System.String,System.String,System.String)">
+            <summary>
+            Creates a HTTP web request.
+            </summary>
+            <returns>The HTTP web request.</returns>
+            <param name="remotePath">url of the desired remote object.</param>
+            <param name="username">The username used for authentication.</param>
+            <param name="password">The password used for authentication.</param>
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.Protocols.Manifest.HTTPProtocolHandler.DoesRemoteDirectoryOrFileExist(System.String)">
+            <summary>
+            Checks if the provided path points to a valid directory or file.
+            </summary>
+            <returns><c>true</c>, if the directory or file exists, <c>false</c> otherwise.</returns>
+            <param name="url">The remote url of the directory or file.</param>
+        </member>
+        <member name="T:Launchpad.Launcher.Handlers.Protocols.Manifest.ManifestBasedProtocolHandler">
+            <summary>
+            Base underlying class for protocols using a manifest.
+            </summary>
+        </member>
+        <member name="F:Launchpad.Launcher.Handlers.Protocols.Manifest.ManifestBasedProtocolHandler.Log">
+            <summary>
+            Logger instance for this class.
+            </summary>
+        </member>
+        <member name="F:Launchpad.Launcher.Handlers.Protocols.Manifest.ManifestBasedProtocolHandler.LocalizationCatalog">
+            <summary>
+            The localization catalog.
+            </summary>
+        </member>
+        <member name="F:Launchpad.Launcher.Handlers.Protocols.Manifest.ManifestBasedProtocolHandler.FileManifestHandler">
+            <summary>
+            The file manifest handler. This allows access to the launcher and game file lists.
+            </summary>
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.Protocols.Manifest.ManifestBasedProtocolHandler.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Launchpad.Launcher.Handlers.Protocols.Manifest.ManifestBasedProtocolHandler"/> class.
+            </summary>
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.Protocols.Manifest.ManifestBasedProtocolHandler.InstallGame">
+            <inheritdoc />
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.Protocols.Manifest.ManifestBasedProtocolHandler.UpdateModule(Launchpad.Launcher.Handlers.Protocols.EModule)">
+            <inheritdoc />
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.Protocols.Manifest.ManifestBasedProtocolHandler.VerifyModule(Launchpad.Launcher.Handlers.Protocols.EModule)">
+            <inheritdoc />
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.Protocols.Manifest.ManifestBasedProtocolHandler.DownloadModule(Launchpad.Launcher.Handlers.Protocols.EModule)">
+            <inheritdoc />
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.Protocols.Manifest.ManifestBasedProtocolHandler.ReadRemoteFile(System.String,System.Boolean)">
+            <summary>
+            Reads the contents of a remote file as a string.
+            </summary>
+            <param name="url">The URL to read.</param>
+            <param name="useAnonymousLogin">Whether or not to use anonymous credentials.</param>
+            <returns>The contents of the file.</returns>
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.Protocols.Manifest.ManifestBasedProtocolHandler.DownloadRemoteFile(System.String,System.String,System.Int64,System.Int64,System.Boolean)">
+            <summary>
+            Downloads the contents of the file at the specified url to the specified local path.
+            This method supported resuming a partial file.
+            </summary>
+            <param name="url">The URL to download.</param>
+            <param name="localPath">The local path where the file should be saved.</param>
+            <param name="totalSize">The expected total size of the file.</param>
+            <param name="contentOffset">The offset into the file where reading and writing should start.</param>
+            <param name="useAnonymousLogin">Whether or not to use anonymous credentials.</param>
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.Protocols.Manifest.ManifestBasedProtocolHandler.IsModuleOutdated(Launchpad.Launcher.Handlers.Protocols.EModule)">
+            <inheritdoc />
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.Protocols.Manifest.ManifestBasedProtocolHandler.DownloadManifestEntry(Launchpad.Common.Handlers.Manifest.ManifestEntry,Launchpad.Launcher.Handlers.Protocols.EModule,Launchpad.Common.Handlers.Manifest.ManifestEntry)">
+            <summary>
+            Downloads the file referred to by the specifed manifest entry.
+            </summary>
+            <param name="fileEntry">The entry to download.</param>
+            <param name="module">The module that the entry belongs to.</param>
+            <param name="oldFileEntry">The old entry, if one exists.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            Will be thrown if the <see cref="T:Launchpad.Launcher.Handlers.Protocols.EModule"/> passed to the function is not a valid value.
+            </exception>
+            <exception cref="T:System.ArgumentNullException">
+            Will be thrown if the local path set in the <paramref name="fileEntry"/> passed to the function is not a valid value.
+            </exception>
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.Protocols.Manifest.ManifestBasedProtocolHandler.IsModuleManifestOutdated(Launchpad.Launcher.Handlers.Protocols.EModule)">
+            <summary>
+            Determines whether or not the local copy of the manifest for the specifed module is outdated.
+            </summary>
+            <param name="module">The module.</param>
+            <returns>true if the manifest is outdated; otherwise, false.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            Will be thrown if the <see cref="T:Launchpad.Launcher.Handlers.Protocols.EModule"/> passed to the function is not a valid value.
+            </exception>
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.Protocols.Manifest.ManifestBasedProtocolHandler.GetRemoteModuleManifestChecksum(Launchpad.Launcher.Handlers.Protocols.EModule)">
+            <summary>
+            Gets the checksum of the manifest for the specified module.
+            </summary>
+            <param name="module">The module.</param>
+            <returns>The checksum.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            Will be thrown if the <see cref="T:Launchpad.Launcher.Handlers.Protocols.EModule"/> passed to the function is not a valid value.
+            </exception>
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.Protocols.Manifest.ManifestBasedProtocolHandler.RefreshModuleManifest(Launchpad.Launcher.Handlers.Protocols.EModule)">
+            <summary>
+            Refreshes the current manifest by redownloading it, if required;
+            </summary>
+            <param name="module">The module.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            Will be thrown if the <see cref="T:Launchpad.Launcher.Handlers.Protocols.EModule"/> passed to the function is not a valid value.
+            </exception>
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.Protocols.Manifest.ManifestBasedProtocolHandler.DownloadModuleManifest(Launchpad.Launcher.Handlers.Protocols.EModule)">
+            <summary>
+            Downloads the manifest for the specified module, and backs up the old copy of the manifest.
+            </summary>
+            <param name="module">The module.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            Will be thrown if the <see cref="T:Launchpad.Launcher.Handlers.Protocols.EModule"/> passed to the function is not a valid value.
+            </exception>
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.Protocols.Manifest.ManifestBasedProtocolHandler.GetRemoteLauncherVersion">
+            <summary>
+            Gets the remote launcher version.
+            </summary>
+            <returns>The remote launcher version.
+            If the version could not be retrieved from the server, a version of 0.0.0 is returned.</returns>
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.Protocols.Manifest.ManifestBasedProtocolHandler.GetRemoteGameVersion">
+            <summary>
+            Gets the remote game version.
+            </summary>
+            <returns>The remote game version.</returns>
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.Protocols.Manifest.ManifestBasedProtocolHandler.GetVerifyIndicatorLabelMessage(System.String,System.Int32,System.Int32)">
+            <summary>
+            Gets the indicator label message to display to the user while repairing.
+            </summary>
+            <returns>The indicator label message.</returns>
+            <param name="currentFilename">Current filename.</param>
+            <param name="verifiedFiles">N files downloaded.</param>
+            <param name="totalFiles">Total files to download.</param>
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.Protocols.Manifest.ManifestBasedProtocolHandler.GetUpdateIndicatorLabelMessage(System.String,System.Int32,System.Int32)">
+            <summary>
+            Gets the indicator label message to display to the user while repairing.
+            </summary>
+            <returns>The indicator label message.</returns>
+            <param name="currentFilename">Current filename.</param>
+            <param name="updatedFiles">Number of files that have been updated</param>
+            <param name="totalFiles">Total files that are to be updated</param>
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.Protocols.Manifest.ManifestBasedProtocolHandler.GetDownloadIndicatorLabelMessage(System.String,System.Int32,System.Int32)">
+            <summary>
+            Gets the indicator label message to display to the user while installing.
+            </summary>
+            <returns>The indicator label message.</returns>
+            <param name="currentFilename">Current filename.</param>
+            <param name="downloadedFiles">N files downloaded.</param>
+            <param name="totalFiles">Total files to download.</param>
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.Protocols.Manifest.ManifestBasedProtocolHandler.GetDownloadProgressBarMessage(System.String,System.Int64,System.Int64)">
+            <summary>
+            Gets the progress bar message.
+            </summary>
+            <returns>The progress bar message.</returns>
+            <param name="filename">Filename.</param>
+            <param name="downloadedBytes">Downloaded bytes.</param>
+            <param name="totalBytes">Total bytes.</param>
+        </member>
+        <member name="T:Launchpad.Launcher.Handlers.Protocols.ModuleProgressChangedArgs">
+            <summary>
+            Event arguments for changing modules.
+            </summary>
+        </member>
+        <member name="P:Launchpad.Launcher.Handlers.Protocols.ModuleProgressChangedArgs.Module">
+            <summary>
+            Gets or sets the module that is being changed.
+            </summary>
+        </member>
+        <member name="P:Launchpad.Launcher.Handlers.Protocols.ModuleProgressChangedArgs.ProgressBarMessage">
+            <summary>
+            Gets or sets the message that should be displayed on the progress bar.
+            </summary>
+        </member>
+        <member name="P:Launchpad.Launcher.Handlers.Protocols.ModuleProgressChangedArgs.IndicatorLabelMessage">
+            <summary>
+            Gets or sets the message that should be displayed on the indicator label.
+            </summary>
+        </member>
+        <member name="P:Launchpad.Launcher.Handlers.Protocols.ModuleProgressChangedArgs.ProgressFraction">
+            <summary>
+            Gets or sets the fractional progress (in the range 0 to 1).
+            </summary>
+        </member>
+        <member name="T:Launchpad.Launcher.Handlers.Protocols.PatchProtocolHandler">
+             <summary>
+             Patch protocol handler.
+             This class is the base class for all file transfer protocols, providing
+             a common framework for protocols to adhere to. It abstracts away the actual
+             functionality, and reduces the communication with other parts of the launcher
+             down to requests in, files out.
+            
+             By default, the patch protocol handler does not know anything specific about
+             the actual workings of the protocol.
+             </summary>
+        </member>
+        <member name="F:Launchpad.Launcher.Handlers.Protocols.PatchProtocolHandler.Log">
+            <summary>
+            Logger instance for this class.
+            </summary>
+        </member>
+        <member name="P:Launchpad.Launcher.Handlers.Protocols.PatchProtocolHandler.Config">
+            <summary>
+            Gets the config handler reference.
+            </summary>
+        </member>
+        <member name="P:Launchpad.Launcher.Handlers.Protocols.PatchProtocolHandler.Configuration">
+            <summary>
+            Gets the configuration instance.
+            </summary>
+        </member>
+        <member name="E:Launchpad.Launcher.Handlers.Protocols.PatchProtocolHandler.ModuleDownloadProgressChanged">
+            <summary>
+            Raised whenever the download progress of a module changes.
+            </summary>
+        </member>
+        <member name="E:Launchpad.Launcher.Handlers.Protocols.PatchProtocolHandler.ModuleVerifyProgressChanged">
+            <summary>
+            Raised whenever the verification progress of a module changes.
+            </summary>
+        </member>
+        <member name="E:Launchpad.Launcher.Handlers.Protocols.PatchProtocolHandler.ModuleUpdateProgressChanged">
+            <summary>
+            Raised whenever the update progress of a module changes.
+            </summary>
+        </member>
+        <member name="E:Launchpad.Launcher.Handlers.Protocols.PatchProtocolHandler.ModuleInstallationFinished">
+            <summary>
+            Raised whenever the installation of a module finishes.
+            </summary>
+        </member>
+        <member name="E:Launchpad.Launcher.Handlers.Protocols.PatchProtocolHandler.ModuleInstallationFailed">
+            <summary>
+            Raised whenver the installation of a module fails.
+            </summary>
+        </member>
+        <member name="P:Launchpad.Launcher.Handlers.Protocols.PatchProtocolHandler.ModuleDownloadProgressArgs">
+            <summary>
+            Gets the download progress arguments.
+            </summary>
+        </member>
+        <member name="P:Launchpad.Launcher.Handlers.Protocols.PatchProtocolHandler.ModuleVerifyProgressArgs">
+            <summary>
+            Gets the verification progress arguments.
+            </summary>
+        </member>
+        <member name="P:Launchpad.Launcher.Handlers.Protocols.PatchProtocolHandler.ModuleUpdateProgressArgs">
+            <summary>
+            Gets the update progress arguments.
+            </summary>
+        </member>
+        <member name="P:Launchpad.Launcher.Handlers.Protocols.PatchProtocolHandler.TagfileService">
+            <summary>
+            Gets the tagfile service.
+            </summary>
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.Protocols.PatchProtocolHandler.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Launchpad.Launcher.Handlers.Protocols.PatchProtocolHandler"/> class.
+            </summary>
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.Protocols.PatchProtocolHandler.CanPatch">
+            <summary>
+            Determines whether this instance can provide patches. Checks for an active connection to the
+            patch provider (file server, distributed hash tables, hyperspace compression waves etc.)
+            </summary>
+            <returns><c>true</c> if this instance can provide patches; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.Protocols.PatchProtocolHandler.IsPlatformAvailable(Launchpad.Common.Enums.ESystemTarget)">
+            <summary>
+            Determines whether the protocol can provide patches and updates for the provided platform.
+            </summary>
+            <param name="platform">The platform to check.</param>
+            <returns><c>true</c> if the platform is available; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.Protocols.PatchProtocolHandler.CanProvideBanner">
+            <summary>
+            Determines whether this protocol can provide access to a banner for the game.
+            </summary>
+            <returns><c>true</c> if this instance can provide banner; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.Protocols.PatchProtocolHandler.GetChangelogMarkup">
+            <summary>
+            Gets the changelog.
+            </summary>
+            <returns>The changelog.</returns>
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.Protocols.PatchProtocolHandler.GetBanner">
+            <summary>
+            Gets the banner.
+            </summary>
+            <returns>The banner.</returns>
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.Protocols.PatchProtocolHandler.IsModuleOutdated(Launchpad.Launcher.Handlers.Protocols.EModule)">
+            <summary>
+            Determines whether or not the specified module is outdated.
+            </summary>
+            <param name="module">The module.</param>
+            <returns>true if the module is outdated; otherwise, false.</returns>
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.Protocols.PatchProtocolHandler.InstallGame">
+            <summary>
+            Installs the game.
+            </summary>
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.Protocols.PatchProtocolHandler.DownloadModule(Launchpad.Launcher.Handlers.Protocols.EModule)">
+            <summary>
+            Downloads the latest version of the specified module.
+            </summary>
+            <param name="module">The module.</param>
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.Protocols.PatchProtocolHandler.UpdateModule(Launchpad.Launcher.Handlers.Protocols.EModule)">
+            <summary>
+            Updates the specified module to the latest version.
+            </summary>
+            <param name="module">The module to update.</param>
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.Protocols.PatchProtocolHandler.VerifyModule(Launchpad.Launcher.Handlers.Protocols.EModule)">
+            <summary>
+            Verifies and repairs the files of the specified module.
+            </summary>
+            <param name="module">The module.</param>
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.Protocols.PatchProtocolHandler.OnModuleDownloadProgressChanged">
+            <summary>
+            Invoke the <see cref="E:Launchpad.Launcher.Handlers.Protocols.PatchProtocolHandler.ModuleDownloadProgressChanged"/> event.
+            </summary>
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.Protocols.PatchProtocolHandler.OnModuleVerifyProgressChanged">
+            <summary>
+            Invoke the <see cref="E:Launchpad.Launcher.Handlers.Protocols.PatchProtocolHandler.ModuleVerifyProgressChanged"/> event.
+            </summary>
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.Protocols.PatchProtocolHandler.OnModuleUpdateProgressChanged">
+            <summary>
+            Invoke the <see cref="E:Launchpad.Launcher.Handlers.Protocols.PatchProtocolHandler.ModuleUpdateProgressChanged"/> event.
+            </summary>
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.Protocols.PatchProtocolHandler.OnModuleInstallationFinished(Launchpad.Launcher.Handlers.Protocols.EModule)">
+            <summary>
+            Invoke the <see cref="E:Launchpad.Launcher.Handlers.Protocols.PatchProtocolHandler.ModuleInstallationFinished"/> event.
+            </summary>
+            <param name="module">The module that finished.</param>
+        </member>
+        <member name="M:Launchpad.Launcher.Handlers.Protocols.PatchProtocolHandler.OnModuleInstallationFailed(Launchpad.Launcher.Handlers.Protocols.EModule)">
+            <summary>
+            Invoke the <see cref="E:Launchpad.Launcher.Handlers.Protocols.PatchProtocolHandler.ModuleInstallationFailed"/> event.
+            </summary>
+            <param name="module">The module that failed.</param>
+        </member>
+        <member name="T:Launchpad.Launcher.Interface.MainWindow">
+            <summary>
+            The main UI class for Launchpad. This class acts as a manager for all threaded
+            actions, such as installing, updating or repairing the game.
+            </summary>
+            <summary>
+            Interface elements for the <see cref="T:Launchpad.Launcher.Interface.MainWindow"/> widget.
+            </summary>
+        </member>
+        <member name="F:Launchpad.Launcher.Interface.MainWindow.Log">
+            <summary>
+            Logger instance for this class.
+            </summary>
+        </member>
+        <member name="F:Launchpad.Launcher.Interface.MainWindow.Configuration">
+            <summary>
+            The configuration instance reference.
+            </summary>
+        </member>
+        <member name="F:Launchpad.Launcher.Interface.MainWindow.Checks">
+            <summary>
+            The checks handler reference.
+            </summary>
+        </member>
+        <member name="F:Launchpad.Launcher.Interface.MainWindow.Launcher">
+            <summary>
+            The launcher handler. Allows updating the launcher and loading the changelog
+            </summary>
+        </member>
+        <member name="F:Launchpad.Launcher.Interface.MainWindow.Game">
+            <summary>
+            The game handler. Allows updating, installing and repairing the game.
+            </summary>
+        </member>
+        <member name="F:Launchpad.Launcher.Interface.MainWindow.Mode">
+            <summary>
+            The current mode that the launcher is in. Determines what the primary button does when pressed.
+            </summary>
+        </member>
+        <member name="F:Launchpad.Launcher.Interface.MainWindow.LocalizationCatalog">
+            <summary>
+            The localization catalog.
+            </summary>
+        </member>
+        <member name="F:Launchpad.Launcher.Interface.MainWindow.IsInitialized">
+            <summary>
+            Whether or not the launcher UI has been initialized.
+            </summary>
+        </member>
+        <member name="M:Launchpad.Launcher.Interface.MainWindow.#ctor(Gtk.Builder,System.IntPtr)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Launchpad.Launcher.Interface.MainWindow"/> class.
+            </summary>
+            <param name="builder">The UI builder.</param>
+            <param name="handle">The native handle of the window.</param>
+        </member>
+        <member name="M:Launchpad.Launcher.Interface.MainWindow.InitializeAsync">
+            <summary>
+            Initializes the UI of the launcher, performing varying checks against the patching server.
+            </summary>
+            <returns>A task that must be awaited.</returns>
+        </member>
+        <member name="M:Launchpad.Launcher.Interface.MainWindow.SetLauncherMode(Launchpad.Launcher.Utility.Enums.ELauncherMode,System.Boolean)">
+            <summary>
+            Sets the launcher mode and updates UI elements to match
+            </summary>
+            <param name="newMode">The new mode.</param>
+            <param name="isInProgress">If set to <c>true</c>, the selected mode is in progress.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            Will be thrown if the <see cref="T:Launchpad.Launcher.Utility.Enums.ELauncherMode"/> passed to the function is not a valid value.
+            </exception>
+        </member>
+        <member name="M:Launchpad.Launcher.Interface.MainWindow.OnMenuRepairItemActivated(System.Object,System.EventArgs)">
+            <summary>
+            Runs a game repair, no matter what the state the installation is in.
+            </summary>
+            <param name="sender">Sender.</param>
+            <param name="e">E.</param>
+        </member>
+        <member name="M:Launchpad.Launcher.Interface.MainWindow.OnOpenGLClicked(System.Object,System.EventArgs)">
+            <summary>
+            Start game in OPENGL
+            </summary>
+            <param name="sender">The sender.</param>
+            <param name="e">Empty arguments.</param>
+        </member>
+        <member name="M:Launchpad.Launcher.Interface.MainWindow.OnMainButtonClicked(System.Object,System.EventArgs)">
+            <summary>
+            Handles switching between different functionalities depending on what is visible on the button to the user, such as
+            * Installing
+            * Updating
+            * Repairing
+            * Launching
+            </summary>
+            <param name="sender">The sender.</param>
+            <param name="e">Empty arguments.</param>
+        </member>
+        <member name="M:Launchpad.Launcher.Interface.MainWindow.OnLauncherDownloadFinished(System.Object,System.EventArgs)">
+            <summary>
+            Starts the launcher update process when its files have finished downloading.
+            </summary>
+        </member>
+        <member name="M:Launchpad.Launcher.Interface.MainWindow.OnGameLaunchFailed(System.Object,System.EventArgs)">
+            <summary>
+            Warns the user when the game fails to launch, and offers to attempt a repair.
+            </summary>
+            <param name="sender">The sender.</param>
+            <param name="e">Empty event args.</param>
+        </member>
+        <member name="M:Launchpad.Launcher.Interface.MainWindow.OnGameDownloadFailed(System.Object,System.EventArgs)">
+            <summary>
+            Provides alternatives when the game fails to download, either through an update or through an installation.
+            </summary>
+            <param name="sender">The sender.</param>
+            <param name="e">Contains the type of failure that occurred.</param>
+        </member>
+        <member name="M:Launchpad.Launcher.Interface.MainWindow.OnModuleInstallationProgressChanged(System.Object,Launchpad.Launcher.Handlers.Protocols.ModuleProgressChangedArgs)">
+            <summary>
+            Updates the progress bar and progress label during installations, repairs and updates.
+            </summary>
+            <param name="sender">The sender.</param>
+            <param name="e">Contains the progress values and current filename.</param>
+        </member>
+        <member name="M:Launchpad.Launcher.Interface.MainWindow.OnGameDownloadFinished(System.Object,System.EventArgs)">
+            <summary>
+            Allows the user to launch or repair the game once installation finishes.
+            </summary>
+            <param name="sender">The sender.</param>
+            <param name="e">Contains the result of the download.</param>
+        </member>
+        <member name="M:Launchpad.Launcher.Interface.MainWindow.OnGameExited(System.Object,System.Int32)">
+            <summary>
+            Handles offering of repairing the game to the user should the game exit
+            with a bad exit code.
+            </summary>
+        </member>
+        <member name="M:Launchpad.Launcher.Interface.MainWindow.OnReinstallGameActionActivated(System.Object,System.EventArgs)">
+            <summary>
+            Handles starting of a reinstallation procedure as requested by the user.
+            </summary>
+        </member>
+        <member name="M:Launchpad.Launcher.Interface.MainWindow.Create">
+            <summary>
+            Creates a new instance of the <see cref="T:Launchpad.Launcher.Interface.MainWindow"/> class, loading its interface definition from file.
+            </summary>
+            <returns>An instance of the main window widget.</returns>
+        </member>
+        <member name="M:Launchpad.Launcher.Interface.MainWindow.BindUIEvents">
+            <summary>
+            Binds UI-related events.
+            </summary>
+        </member>
+        <member name="M:Launchpad.Launcher.Interface.MainWindow.OnMenuAboutItemActivated(System.Object,System.EventArgs)">
+            <summary>
+            Displays the about window to the user.
+            </summary>
+            <param name="sender">The sending object.</param>
+            <param name="e">The event args.</param>
+        </member>
+        <member name="M:Launchpad.Launcher.Interface.MainWindow.OnDeleteEvent(System.Object,Gtk.DeleteEventArgs)">
+            <summary>
+            Exits the application properly when the window is deleted.
+            </summary>
+            <param name="sender">Sender.</param>
+            <param name="a">The alpha component.</param>
+        </member>
+        <member name="T:Launchpad.Launcher.Program">
+            <summary>
+            The main program class.
+            </summary>
+        </member>
+        <member name="F:Launchpad.Launcher.Program.Log">
+            <summary>
+            Logger instance for this class.
+            </summary>
+        </member>
+        <member name="M:Launchpad.Launcher.Program.Main">
+            <summary>
+            The main entry point for the application.
+            </summary>
+        </member>
+        <member name="M:Launchpad.Launcher.Program.OnGLibUnhandledException(GLib.UnhandledExceptionArgs)">
+            <summary>
+            Passes any unhandled exceptions from the GTK UI to the generic handler.
+            </summary>
+            <param name="args">The event object containing the information about the exception.</param>
+        </member>
+        <member name="M:Launchpad.Launcher.Program.OnUnhandledException(System.Object,System.UnhandledExceptionEventArgs)">
+            <summary>
+            Event handler for all unhandled exceptions that may be encountered during runtime. While there should never
+            be any unhandled exceptions in an ideal program, unexpected issues can and will arise. This handler logs
+            the exception and all relevant information to a logfile and prints it to the console for debugging purposes.
+            </summary>
+            <param name="sender">The sending object.</param>
+            <param name="unhandledExceptionEventArgs">The event object containing the information about the exception.</param>
+        </member>
+        <member name="T:Launchpad.Launcher.Services.GameArgumentService">
+            <summary>
+            A service providing access to arguments that should be passed to the game.
+            </summary>
+        </member>
+        <member name="M:Launchpad.Launcher.Services.GameArgumentService.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Launchpad.Launcher.Services.GameArgumentService"/> class.
+            </summary>
+        </member>
+        <member name="M:Launchpad.Launcher.Services.GameArgumentService.InitializeGameArgumentsFile">
+            <summary>
+            Creates a configuration file where the user or developer can add runtime switches for the installed game.
+            If the file already exists, this method does nothing.
+            </summary>
+        </member>
+        <member name="M:Launchpad.Launcher.Services.GameArgumentService.GetGameArguments">
+            <summary>
+            Gets a list of command-line arguments that are passed to the game when it starts.
+            </summary>
+            <returns>The arguments.</returns>
+        </member>
+        <member name="T:Launchpad.Launcher.Services.LocalVersionService">
+            <summary>
+            A service which handles local version discovery.
+            </summary>
+        </member>
+        <member name="F:Launchpad.Launcher.Services.LocalVersionService.Log">
+            <summary>
+            Logger instance for this class.
+            </summary>
+        </member>
+        <member name="M:Launchpad.Launcher.Services.LocalVersionService.GetLocalGameVersion">
+            <summary>
+            Gets the local game version.
+            </summary>
+            <returns>The local game version.</returns>
+        </member>
+        <member name="M:Launchpad.Launcher.Services.LocalVersionService.GetLocalLauncherVersion">
+            <summary>
+            Gets the local launcher version.
+            </summary>
+            <returns>The version.</returns>
+        </member>
+        <member name="T:Launchpad.Launcher.Services.TagfileService">
+            <summary>
+            Service for creating and managing tagfiles.
+            </summary>
+        </member>
+        <member name="M:Launchpad.Launcher.Services.TagfileService.CreateLauncherTagfile">
+            <summary>
+            Creates the launcher cookie.
+            </summary>
+        </member>
+        <member name="M:Launchpad.Launcher.Services.TagfileService.CreateGameTagfile">
+            <summary>
+            Creates the install cookie.
+            </summary>
+        </member>
+        <member name="T:Launchpad.Launcher.Utility.DirectoryHelpers">
+            <summary>
+            Helper methods for common paths and directories.
+            </summary>
+        </member>
+        <member name="M:Launchpad.Launcher.Utility.DirectoryHelpers.GetConfigPath">
+            <summary>
+            Gets the expected path to the config file on disk.
+            </summary>
+            <returns>The config path.</returns>
+        </member>
+        <member name="M:Launchpad.Launcher.Utility.DirectoryHelpers.GetConfigDirectory">
+            <summary>
+            Gets the path to the config directory.
+            </summary>
+            <returns>The path.</returns>
+        </member>
+        <member name="M:Launchpad.Launcher.Utility.DirectoryHelpers.GetLauncherTagfilePath">
+            <summary>
+            Gets the path to the launcher cookie on disk.
+            </summary>
+            <returns>The launcher cookie.</returns>
+        </member>
+        <member name="M:Launchpad.Launcher.Utility.DirectoryHelpers.GetGameTagfilePath">
+            <summary>
+            Gets the install cookie.
+            </summary>
+            <returns>The install cookie.</returns>
+        </member>
+        <member name="M:Launchpad.Launcher.Utility.DirectoryHelpers.GetLocalLauncherDirectory">
+            <summary>
+            Gets the local directory where the launcher is stored.
+            </summary>
+            <returns>The local directory.</returns>
+        </member>
+        <member name="M:Launchpad.Launcher.Utility.DirectoryHelpers.GetTempLauncherDownloadPath">
+            <summary>
+            Gets the temporary launcher download directory.
+            </summary>
+            <returns>A full path to the directory.</returns>
+        </member>
+        <member name="M:Launchpad.Launcher.Utility.DirectoryHelpers.GetGameArgumentsPath">
+            <summary>
+            Gets the expected path to the argument file on disk.
+            </summary>
+            <returns>The path.</returns>
+        </member>
+        <member name="M:Launchpad.Launcher.Utility.DirectoryHelpers.GetLocalGameDirectory">
+            <summary>
+            Gets the game directory.
+            </summary>
+            <returns>The directory.</returns>
+        </member>
+        <member name="M:Launchpad.Launcher.Utility.DirectoryHelpers.GetLocalGameVersionPath">
+            <summary>
+            Gets the game version path.
+            </summary>
+            <returns>The game version path.</returns>
+        </member>
+        <member name="M:Launchpad.Launcher.Utility.DirectoryHelpers.GetRemoteLauncherBinariesPath">
+            <summary>
+            Gets the remote path to where launcher binaries are stored.
+            </summary>
+            <returns>The path.</returns>
+        </member>
+        <member name="M:Launchpad.Launcher.Utility.DirectoryHelpers.GetRemoteLauncherVersionPath">
+            <summary>
+            Gets the remote path of the launcher version.
+            </summary>
+            <returns>
+            The path to either the official launchpad binaries or a custom launcher, depending on the settings.
+            </returns>
+        </member>
+        <member name="M:Launchpad.Launcher.Utility.DirectoryHelpers.GetRemoteGamePath">
+            <summary>
+            Gets the remote path where the game is stored..
+            </summary>
+            <returns>The path.</returns>
+        </member>
+        <member name="T:Launchpad.Launcher.Utility.Enums.ELauncherMode">
+            <summary>
+            The mode the launcher is in.
+            </summary>
+        </member>
+        <member name="F:Launchpad.Launcher.Utility.Enums.ELauncherMode.Install">
+            <summary>
+            The launcher can install or is installing a game.
+            </summary>
+        </member>
+        <member name="F:Launchpad.Launcher.Utility.Enums.ELauncherMode.Update">
+            <summary>
+            The launcher can update or is updating a game.
+            </summary>
+        </member>
+        <member name="F:Launchpad.Launcher.Utility.Enums.ELauncherMode.Repair">
+            <summary>
+            The launcher can repair or is repairing a game.
+            </summary>
+        </member>
+        <member name="F:Launchpad.Launcher.Utility.Enums.ELauncherMode.Launch">
+            <summary>
+            The launcher can launch or is launching a game.
+            </summary>
+        </member>
+        <member name="F:Launchpad.Launcher.Utility.Enums.ELauncherMode.Inactive">
+            <summary>
+            The launcher can't do or isn't doing anything.
+            </summary>
+        </member>
+        <member name="T:Launchpad.Launcher.Utility.PatchProtocolProvider">
+            <summary>
+            TODO: Temporary hack class. This is going away.
+            </summary>
+        </member>
+        <member name="M:Launchpad.Launcher.Utility.PatchProtocolProvider.GetHandler">
+            <summary>
+            Gets an instance of the patch protocol handler which supports the URI set in the configuration.
+            </summary>
+            <returns>A handler instance.</returns>
+            <exception cref="T:System.ArgumentException">Thrown if no compatible handler is available.</exception>
+        </member>
+        <member name="T:Launchpad.Launcher.Utility.ResourceManager">
+            <summary>
+            Manages embedded resources of the application.
+            </summary>
+        </member>
+        <member name="P:Launchpad.Launcher.Utility.ResourceManager.ApplicationIcon">
+            <summary>
+            Gets the application icon as a pixel buffer.
+            </summary>
+        </member>
+    </members>
+</doc>

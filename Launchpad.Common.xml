@@ -1,0 +1,225 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Launchpad.Common</name>
+    </assembly>
+    <members>
+        <member name="T:Launchpad.Common.Enums.EManifestType">
+            <summary>
+            Enum defining the type of manifest.
+            </summary>
+        </member>
+        <member name="F:Launchpad.Common.Enums.EManifestType.Unknown">
+            <summary>
+            An unknown manifest.
+            </summary>
+        </member>
+        <member name="F:Launchpad.Common.Enums.EManifestType.Launchpad">
+            <summary>
+            A launcher manifest.
+            </summary>
+        </member>
+        <member name="F:Launchpad.Common.Enums.EManifestType.Game">
+            <summary>
+            A game manifest.
+            </summary>
+        </member>
+        <member name="T:Launchpad.Common.ExtensionMethods">
+            <summary>
+            Various extension methods.
+            </summary>
+        </member>
+        <member name="M:Launchpad.Common.ExtensionMethods.RemoveLineSeparatorsAndNulls(System.String)">
+            <summary>
+            Sanitizes the input string, removing any \n, \r, or \0 characters.
+            </summary>
+            <param name="input">Input string.</param>
+            <returns>The string, without the illegal characters.</returns>
+        </member>
+        <member name="M:Launchpad.Common.ExtensionMethods.AddOrUpdate``2(System.Collections.Generic.IDictionary{``0,``1},``0,``1)">
+            <summary>
+            Adds a new value to an existing IDictionary, or if the dictionary already contains a value for the given key,
+            updates the existing key with the new value.
+            </summary>
+            <param name="dictionary">The dictionary to update.</param>
+            <param name="key">The key of the provided value.</param>
+            <param name="value">The value to add or update.</param>
+            <typeparam name="TKey">The type of the key.</typeparam>
+            <typeparam name="TValue">The type of the value.</typeparam>
+        </member>
+        <member name="T:Launchpad.Common.Handlers.Manifest.ManifestEntry">
+            <summary>
+            A manifest entry derived from the raw unformatted string.
+            Contains the relative path of the referenced file, as well as
+            its MD5 hash and size in bytes.
+            </summary>
+        </member>
+        <member name="P:Launchpad.Common.Handlers.Manifest.ManifestEntry.RelativePath">
+            <summary>
+            Gets or sets the path of the file, relative to the game directory.
+            </summary>
+        </member>
+        <member name="P:Launchpad.Common.Handlers.Manifest.ManifestEntry.Hash">
+            <summary>
+            Gets or sets the MD5 hash of the file.
+            </summary>
+        </member>
+        <member name="P:Launchpad.Common.Handlers.Manifest.ManifestEntry.Size">
+            <summary>
+            Gets or sets the size in bytes of the file.
+            </summary>
+        </member>
+        <member name="M:Launchpad.Common.Handlers.Manifest.ManifestEntry.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Launchpad.Common.Handlers.Manifest.ManifestEntry"/> class.
+            </summary>
+        </member>
+        <member name="M:Launchpad.Common.Handlers.Manifest.ManifestEntry.TryParse(System.String,Launchpad.Common.Handlers.Manifest.ManifestEntry@)">
+            <summary>
+            Attempts to parse an entry from a raw input.
+            The input is expected to be in [path]:[hash]:[size] format. Note that the file path is case sensitive,
+            but the hash is not.
+            </summary>
+            <returns><c>true</c>, if the input was successfully parse, <c>false</c> otherwise.</returns>
+            <param name="rawInput">Raw input.</param>
+            <param name="inEntry">The resulting entry.</param>
+        </member>
+        <member name="M:Launchpad.Common.Handlers.Manifest.ManifestEntry.ToString">
+            <summary>
+            Returns a <see cref="T:System.String"/> that represents the current <see cref="T:Launchpad.Common.Handlers.Manifest.ManifestEntry"/>.
+            The returned value matches a raw in-manifest representation of the entry, in the form of
+            [path]:[hash]:[size]
+            </summary>
+            <returns>A <see cref="T:System.String"/> that represents the current <see cref="T:Launchpad.Common.Handlers.Manifest.ManifestEntry"/>.</returns>
+        </member>
+        <member name="M:Launchpad.Common.Handlers.Manifest.ManifestEntry.Equals(System.Object)">
+            <summary>
+            Determines whether the specified <see cref="T:System.Object"/> is equal to the current <see cref="T:Launchpad.Common.Handlers.Manifest.ManifestEntry"/>.
+            </summary>
+            <param name="obj">The <see cref="T:System.Object"/> to compare with the current <see cref="T:Launchpad.Common.Handlers.Manifest.ManifestEntry"/>.</param>
+            <returns><c>true</c> if the specified <see cref="T:System.Object"/> is equal to the current
+            <see cref="T:Launchpad.Common.Handlers.Manifest.ManifestEntry"/>; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:Launchpad.Common.Handlers.Manifest.ManifestEntry.Equals(Launchpad.Common.Handlers.Manifest.ManifestEntry)">
+            <inheritdoc />
+        </member>
+        <member name="M:Launchpad.Common.Handlers.Manifest.ManifestEntry.GetHashCode">
+            <summary>
+            Serves as a hash function for a <see cref="T:Launchpad.Common.Handlers.Manifest.ManifestEntry"/> object.
+            </summary>
+            <returns>A hash code for this instance that is suitable for use in hashing algorithms and data structures such as a hash table.</returns>
+        </member>
+        <member name="T:Launchpad.Common.Handlers.Manifest.ManifestHandler">
+            <summary>
+            Handler class for the game manifest.
+            </summary>
+        </member>
+        <member name="F:Launchpad.Common.Handlers.Manifest.ManifestHandler.LocalBaseDirectory">
+            <summary>
+            The local base directory of the running assembly. Used to produce relative paths for manifest-related
+            files and folders.
+            </summary>
+        </member>
+        <member name="F:Launchpad.Common.Handlers.Manifest.ManifestHandler.RemoteURL">
+            <summary>
+            The remote <see cref="T:System.Uri"/> where the manifest files are expected to be.
+            </summary>
+        </member>
+        <member name="F:Launchpad.Common.Handlers.Manifest.ManifestHandler.SystemTarget">
+            <summary>
+            The target system for which the handler should retrieve files.
+            </summary>
+        </member>
+        <member name="M:Launchpad.Common.Handlers.Manifest.ManifestHandler.#ctor(System.String,System.Uri,Launchpad.Common.Enums.ESystemTarget)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Launchpad.Common.Handlers.Manifest.ManifestHandler"/> class.
+            This constructor also serves to updated outdated file paths for the manifests.
+            </summary>
+            <param name="localBaseDirectory">The local base directory of the launcher installation.</param>
+            <param name="remoteURL">The remote <see cref="T:System.Uri"/> where the manifest files are expected to be.</param>
+            <param name="systemTarget">The target system for which the handler should retrieve files.</param>
+        </member>
+        <member name="M:Launchpad.Common.Handlers.Manifest.ManifestHandler.GetManifest(Launchpad.Common.Enums.EManifestType,System.Boolean)">
+            <summary>
+            Gets the specifed manifest currently held by the launcher. The return value of this method may be null if no
+            manifest could be retrieved.
+            </summary>
+            <param name="manifestType">The type of manifest to retrieve, that is, the manifest for a specific component.</param>
+            <param name="getOldManifest">Whether or not the old manifest or the new manifest should be retrieved.</param>
+            <returns>A list of <see cref="T:Launchpad.Common.Handlers.Manifest.ManifestEntry"/> objects.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">Thrown if the <paramref name="manifestType"/> is not a known value.</exception>
+        </member>
+        <member name="M:Launchpad.Common.Handlers.Manifest.ManifestHandler.ReloadManifests(Launchpad.Common.Enums.EManifestType)">
+            <summary>
+            Reloads all manifests of the specifed type from disk.
+            </summary>
+            <param name="manifestType">The type of manifest to reload.</param>
+        </member>
+        <member name="M:Launchpad.Common.Handlers.Manifest.ManifestHandler.LoadManifest(System.String)">
+            <summary>
+            Loads a manifest from a file on disk.
+            </summary>
+            <param name="manifestPath">The path to a manifest file.</param>
+            <returns>A list of <see cref="T:Launchpad.Common.Handlers.Manifest.ManifestEntry"/> objects.</returns>
+        </member>
+        <member name="M:Launchpad.Common.Handlers.Manifest.ManifestHandler.LoadManifest(System.IO.Stream)">
+            <summary>
+            Loads a manifest from a <see cref="T:System.IO.Stream"/>.
+            </summary>
+            <param name="manifestStream">A stream containing a manifest."/></param>
+            <returns>A read-only list of <see cref="T:Launchpad.Common.Handlers.Manifest.ManifestEntry"/> objects.</returns>
+        </member>
+        <member name="M:Launchpad.Common.Handlers.Manifest.ManifestHandler.GetManifestPath(Launchpad.Common.Enums.EManifestType,System.Boolean)">
+            <summary>
+            Gets the specified manifest's path on disk. The presence of the manifest is not guaranteed at
+            this point.
+            </summary>
+            <param name="manifestType">The type of manifest to get the path to.</param>
+            <param name="getOldManifestPath">Whether or not the path should specify an old manifest.</param>
+            <returns>A fully qualified path to where a manifest should be.</returns>
+        </member>
+        <member name="M:Launchpad.Common.Handlers.Manifest.ManifestHandler.GetManifestURL(Launchpad.Common.Enums.EManifestType)">
+            <summary>
+            Gets the manifest URL for the specified manifest type.
+            </summary>
+            <param name="manifestType">The type of manifest to get the URL of.</param>
+            <returns>The game manifest URL.</returns>
+        </member>
+        <member name="M:Launchpad.Common.Handlers.Manifest.ManifestHandler.GetManifestChecksumURL(Launchpad.Common.Enums.EManifestType)">
+            <summary>
+            Gets the manifest URL for the specified manifest type.
+            </summary>
+            <param name="manifestType">The type of manifest to get the URL of.</param>
+            <returns>The game manifest URL.</returns>
+        </member>
+        <member name="T:Launchpad.Common.Handlers.MD5Handler">
+            <summary>
+            MD5 hashing handler. Used to ensure file integrity.
+            </summary>
+        </member>
+        <member name="M:Launchpad.Common.Handlers.MD5Handler.GetStreamHash(System.IO.Stream)">
+            <summary>
+            Gets the file hash from a data stream.
+            </summary>
+            <returns>The hash.</returns>
+            <param name="dataStream">File stream.</param>
+        </member>
+        <member name="T:Launchpad.Common.PlatformHelpers">
+            <summary>
+            Helper methods for determining the current platform.
+            </summary>
+        </member>
+        <member name="M:Launchpad.Common.PlatformHelpers.IsRunningOnUnix">
+            <summary>
+            Determines whether this instance is running on Unix.
+            </summary>
+            <returns><c>true</c> if this instance is running on unix; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:Launchpad.Common.PlatformHelpers.GetCurrentPlatform">
+            <summary>
+            Gets the current platform the launcher is running on.
+            </summary>
+            <returns>The current platform.</returns>
+        </member>
+    </members>
+</doc>
